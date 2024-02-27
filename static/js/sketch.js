@@ -9,69 +9,69 @@ let y_values = [];
 let dx;
 let frame_count = 0;
 let x_spacing = 2;
-let inp1, inp2, button;
+let amplitude_slider, period_slider, button, label1, label2;
 let x, y;
 
+let started = false;
+
 function setup() {
-    var myCanvas = createCanvas(1000, 700);
-    myCanvas.parent("main-container");
-    w = myCanvas.width;
-    h = myCanvas.height;
-    sin_points = new Array(floor(w / x_spacing));
-    cos_points = new Array(floor(w / x_spacing));
-    stroke('#fae');
-    strokeWeight(3);
-    noFill();
-    inp1 = createInput().attribute('placeholder', 'Amplitude');
-    inp1.position(1100, 200);
-    inp1.input(() => {
-        amplitude = inp1.value();
-    });
-    inp2 = createInput('').attribute('placeholder', 'Period');
-    inp2.position(1100, 250);
-    inp2.input(() => {
-        fundamental_period = inp2.value();
-    });
-    button = createButton("Simulate!");
-    button.position(1100, 300);
-    
+  var myCanvas = createCanvas(1000, 700);
+  myCanvas.parent("main-container");
+  w = myCanvas.width;
+  h = myCanvas.height;
+  sin_points = new Array(floor(w / x_spacing));
+  cos_points = new Array(floor(w / x_spacing));
+  stroke('#fae');
+  strokeWeight(3);
+  noFill();
+
+  amplitude_slider = createSlider(.1, 10, 3, .2).attribute('placeholder', 'Amplitude');
+  amplitude_slider.position(1100, 200);
+
+  label1 = createP("Amplitude")
+  label1.position(1100, 150);
+
+  period_slider = createSlider(0.4, 4, 1.6, 0.05).attribute('placeholder', 'Period');
+  period_slider.position(1100, 260);
+
+  label2 = createP("Period")
+  label2.position(1100, 210)
+
+  button = createButton("Simulate!");
+  button.position(1100, 300);
+
+  button.mousePressed(() => {
+    started = true;
+  });
 
 }
-// function simulate() {
-//     fundamental_period = fundamental_period * 90;
-//     amplitude = amplitude * 20;
-//     omega = TWO_PI / fundamental_period;
-//     t = frameCount;
-//     phase_shift = PI/8;
-//     theta = omega * t + phase_shift;
-//     dx = omega * x_spacing; // 2πf * point_frequency
-//     y = amplitude * sin(-theta); // y = r sinΘ
-//     x = amplitude * sin(theta + PI/2); // x = r cosΘ
-//     calcWave(y, x);
-//     drawSignal();
-//     drawVector(y, x);
-    
-// }
-function draw() {
-    background(29);
-    translate(w/4, h/4);
-    drawAxes();
-   
-    fundamental_period = PI;
-    amplitude = 2; // radius == amplitude
-    fundamental_period = fundamental_period * 90;
-    amplitude = amplitude * 20;
-    omega = TWO_PI / fundamental_period;
-    t = frameCount;
-    phase_shift = PI/8;
-    theta = omega * t + phase_shift;
-    dx = omega * x_spacing; // 2πf * point_frequency
-    y = amplitude * sin(-theta); // y = r sinΘ
-    x = amplitude * sin(theta + PI/2); // x = r cosΘ
-    calcWave(y, x);
-    drawSignal();
-    drawVector(y, x);
 
+function simulate() {
+  fundamental_period = period_slider.value() * 90;
+  amplitude = amplitude_slider.value() * 20;
+  omega = TWO_PI / fundamental_period;
+  t = frameCount;
+  phase_shift = PI / 8;
+  theta = omega * t + phase_shift;
+  dx = omega * x_spacing; // 2πf * point_frequency
+  y = amplitude * sin(-theta); // y = r sinΘ
+  x = amplitude * sin(theta + PI / 2); // x = r cosΘ
+  calcWave(y, x);
+  drawSignal();
+  drawVector(y, x);
+}
+
+function draw() {
+  // only draw background and axes if we haven't started
+  background(29);
+  translate(w / 4, h / 4);
+  drawAxes();
+
+  if (!started) {
+    return;
+  }
+
+  simulate();
 }
 
 
