@@ -22,4 +22,4 @@ Using this knowledge,
 This formula allows us to represent complex exponential signals in terms of sine and cosine functions as projections on the real and imaginary axes vs time.
 
 ## visual representation
-![](img/complex_waves_.png)
+![](img/complex_waves.png)
