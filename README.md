@@ -1,8 +1,10 @@
 # Visualizing Complex Exponential Signals
 
-Combing sinusoids of different frequencies are not trivial. However, using Euler's formula:
+Using Euler's formula:
 
-``e^{j*Θ} = \cos( Θ) + j\sin( Θ)``
+``e^{j*Θ} = cosΘ + jsinΘ``,
+
+we can represent complex exponential signals in Cartesian form
 
 where:
 - Θ represents the angle in radians,
@@ -10,7 +12,12 @@ where:
 - cos(Θ) represents the Real part,
 - jsin(Θ) represents the Imaginary part.
 
-Theta can be represented as a sum of a rotation elements and a phase element:
+The general form of a complex exponential is given by:
+``Z(t) = Ae^{j*Θ}``
+
+``|Z(t)|= A``
+
+Theta can be represented as a sum of a rotation element and a phase element:
 `` Θ = ω*t + ɸ ``
 
 where:
